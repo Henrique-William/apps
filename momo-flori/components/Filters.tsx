@@ -7,35 +7,54 @@ import {
   StyleSheet,
 } from "react-native";
 
-interface SearchCFilters {
-  title: string[];
+interface CategoryItem {
+  title: string;
+  image: React.ReactNode;
+  imageFilled: React.ReactNode;
 }
 
-function Filters({ title }: SearchCFilters) {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(title[0] || null);
+interface FiltersProps {
+  category: CategoryItem[];
+}
 
-  // Função que define o item selecionado
+function Filters({ category }: FiltersProps) {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(
+    category[0]?.title || null
+  );
+
   const handlePress = (item: string) => {
     setSelectedCategory(item);
   };
-  
+
   return (
     <View style={styles.container}>
       <FlatList
-        data={title}
+        data={category}
         horizontal
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item.title}
         renderItem={({ item }) => (
           <TouchableOpacity
-            style={[
-              styles.categoryButton,
-              {
-                backgroundColor: item === selectedCategory ? "#D3B398" : "#F4F4F4", // Cor diferente para o item selecionado
-              },
-            ]}
-            onPress={() => handlePress(item)}
+            style={styles.categoryButton}
+            onPress={() => handlePress(item.title)}
           >
-            <Text style={[styles.categoryText, {color: item === selectedCategory ? '#fff' : '#A7A7A7',}]}>{item}</Text>
+            {item.title === selectedCategory ? item.imageFilled : item.image}
+            <Text
+              style={[
+                styles.categoryText,
+                {
+                  color:
+                    item.title === selectedCategory ? "#004643" : "#7C7C7C",
+                },
+                {
+                  fontFamily:
+                    item.title === selectedCategory
+                      ? "InstrumentMedium"
+                      : "Instrument",
+                },
+              ]}
+            >
+              {item.title}
+            </Text>
           </TouchableOpacity>
         )}
         showsHorizontalScrollIndicator={false}
@@ -46,17 +65,17 @@ function Filters({ title }: SearchCFilters) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 10,
+    width: '100%',
   },
   categoryButton: {
-    paddingVertical: 8,
-    paddingHorizontal: 12,
+    marginRight: 20,
+    padding: 10,
     borderRadius: 10,
-    marginRight: 12,
+    alignItems: "center",
   },
   categoryText: {
-    fontSize: 17,
-    fontFamily: "MontserratMedium", // fonte padrão do projeto
+    marginTop: 5,
+    fontSize: 18,
   },
 });
 

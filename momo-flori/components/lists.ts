@@ -1,39 +1,34 @@
-export interface ProductFlowers {
+export interface ProductPlants {
   title: string;
   color: string;
   image: any;
   subtitle: string;
+  category: string;
   rating: number;
   price: number;
   isLiked: boolean;
 }
 
-export const flores: ProductFlowers[] = [
+export const plants: ProductPlants[] = [
   {
-    title: "Rosa de Pedra",
-    color: "#F2F7FF",
-    image: require("@/assets/images/rosa-de-pedra.png"),
-    subtitle: "From 3 inch",
+    title: "Fiddle leaf fig plant",
+    color: "#E8EDEB",
+    image: require("@/assets/images/fiddle-leaf-fig.png"),
+    subtitle: "Broadleaf evergreen",
+    category: 'Indoor',
     rating: 5.0,
-    price: 25.0,
+    price: 35.0,
     isLiked: false,
   },
   {
-    title: "Cacto Pera",
+    title: "Birds nest plant",
     color: "#FCF0F0",
-    image: require("@/assets/images/cacto-pera.png"),
-    subtitle: "From 3 inch",
+    image: require("@/assets/images/birds-nest.png"),
+    subtitle: "Perennial",
+    category: 'Indoor',
     rating: 4.8,
-    price: 20.0,
-    isLiked: false,
-  },
-  {
-    title: "Zamioculca",
-    color: "#F2F7FF",
-    image: require("@/assets/images/zamioculca.png"),
-    subtitle: "From 3 inch",
-    rating: 3.9,
-    price: 40.0,
+    price: 22.0,
     isLiked: false,
   },
 ];
+

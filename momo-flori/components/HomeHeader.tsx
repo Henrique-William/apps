@@ -7,23 +7,23 @@ function HomeHeader() {
     <View style={styles.header}>
       <View style={styles.headerText}>
         <Text
-          style={{ fontSize: 18, fontFamily: "Montserrat", color: "#333333" }}
+          style={{ fontSize: 18, fontFamily: "Instrument", color: "#333333" }}
         >
           Bom dia 🌞
         </Text>
         <Text
           style={{
             fontSize: 24,
-            fontFamily: "MontserratMedium",
+            fontFamily: "InstrumentMedium",
             color: "#333333",
           }}
         >
-          Henrique William
+          Beatriz Luciano
         </Text>
         <TouchableOpacity style={{flexDirection: 'row', gap: 8, alignItems: 'center'}}>
           <Image source={require("@/assets/images/icons/CloudFog.png")} />
           <Text
-            style={{ fontSize: 14, fontFamily: "Montserrat", color: "#333333" }}
+            style={{ fontSize: 14, fontFamily: "Instrument", color: "#333333" }}
           >
             Nublado 22º
           </Text>
@@ -31,7 +31,7 @@ function HomeHeader() {
         </TouchableOpacity>
       </View>
       <Image
-        source={require("@/assets/images/henrique-william.png")}
+        source={require("@/assets/images/beatriz.jpg")}
         style={styles.imageProfile}
       />
     </View>
@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   imageProfile: {
-    height: 40,
-    width: 40,
+    height: 50,
+    width: 50,
     resizeMode: "cover",
     borderRadius: 1000,
   },

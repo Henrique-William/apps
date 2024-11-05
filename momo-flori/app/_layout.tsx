@@ -5,10 +5,10 @@ import { Stack } from "expo-router";
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
-    Montserrat: require("@/assets/fonts/Montserrat-Regular.ttf"),
-    MontserratMedium: require("@/assets/fonts/Montserrat-Medium.ttf"),
-    MontserratSemibold: require("@/assets/fonts/Montserrat-SemiBold.ttf"),
-    MontserratBold: require("@/assets/fonts/Montserrat-Bold.ttf"),
+    Instrument: require("@/assets/fonts/InstrumentSans-Regular.ttf"),
+    InstrumentMedium: require("@/assets/fonts/InstrumentSans-Medium.ttf"),
+    InstrumentSemiBold: require("@/assets/fonts/InstrumentSans-SemiBold.ttf"),
+    InstrumentBold: require("@/assets/fonts/InstrumentSans-Bold.ttf"),
   });
 
   if (!fontsLoaded) {
