@@ -26,9 +26,14 @@ function Search() {
         </View>
       )}
 
-      <TouchableOpacity style={styles.button} onPress={handleClick}>
+      <TouchableOpacity
+        style={styles.button}
+        onPressIn={handleClick}
+        onPressOut={() => setIsFocused(false)}
+      >
         <Image
           source={require("@/assets/images/icons/lupa.png")}
+          style={{ width: 12, height: 12 }}
         />
       </TouchableOpacity>
 

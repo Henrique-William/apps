@@ -1,4 +1,5 @@
 export interface ProductPlants {
+  id: number,
   title: string;
   color: string;
   image: any;
@@ -11,6 +12,7 @@ export interface ProductPlants {
 
 export const plants: ProductPlants[] = [
   {
+    id: 1,
     title: "Fiddle leaf fig plant",
     color: "#E8EDEB",
     image: require("@/assets/images/fiddle-leaf-fig.png"),
@@ -18,9 +20,10 @@ export const plants: ProductPlants[] = [
     category: 'Indoor',
     rating: 5.0,
     price: 35.0,
-    isLiked: false,
+    isLiked: true,
   },
   {
+    id: 2,
     title: "Birds nest plant",
     color: "#FCF0F0",
     image: require("@/assets/images/birds-nest.png"),
