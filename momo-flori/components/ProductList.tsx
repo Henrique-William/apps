@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  Image,
-} from "react-native";
+import { View, Text, FlatList, StyleSheet, Image } from "react-native";
 import { ProductPlants } from "./lists";
 import LikeBtn from "./LikeBtn";
 import { Link } from "expo-router";
@@ -22,57 +16,61 @@ function ProductList({ list }: Plants) {
         keyExtractor={(item) => item.title}
         renderItem={({ item }) => {
           return (
-            <Link 
-            href={{
-              pathname:'/productInfo',
-              params: {id: item.id}
-            }}
-            style={styles.productContainer}>
-              <View
-                style={[styles.imageHolder, { backgroundColor: item.color }]}
-              >
-                <LikeBtn likeValue={item.isLiked}/>
-                <Image source={item.image} style={styles.productImage} />
-              </View>
+            <View style={styles.productContainer}>
+              <LikeBtn likeValue={item.isLiked} />
 
-              <View
-                style={{
-                  height: "30%",
-                  width: "100%",
-                  backgroundColor: "#fff",
-                  borderBottomLeftRadius: 16,
-                  borderBottomRightRadius: 16,
-                  paddingHorizontal: 12,
-                  paddingTop: 18,
+              <Link
+                href={{
+                  pathname: "/productInfo",
+                  params: { id: item.id },
                 }}
+                style={styles.productContainer}
               >
-                <Text style={styles.title}>{item.title}</Text>
-                <Text style={styles.subTitle}>{item.subtitle}</Text>
+                <View
+                  style={[styles.imageHolder, { backgroundColor: item.color }]}
+                >
+                  <Image source={item.image} style={styles.productImage} />
+                </View>
+
                 <View
                   style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
+                    height: "30%",
+                    width: "100%",
+                    backgroundColor: "#fff",
+                    borderBottomLeftRadius: 16,
+                    borderBottomRightRadius: 16,
+                    paddingHorizontal: 12,
+                    paddingTop: 18,
                   }}
                 >
-                  <Text style={styles.category}>{item.category}</Text>
+                  <Text style={styles.title}>{item.title}</Text>
+                  <Text style={styles.subTitle}>{item.subtitle}</Text>
                   <View
-                    style={{ flexDirection: "row", alignItems: "flex-start" }}
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
                   >
-                    <Text
-                      style={{ fontSize: 16, fontFamily: "InstrumentMedium" }}
+                    <Text style={styles.category}>{item.category}</Text>
+                    <View
+                      style={{ flexDirection: "row", alignItems: "flex-start" }}
                     >
-                      R$
-                    </Text>
-                    <Text
-                      style={{ fontFamily: "InstrumentMedium", fontSize: 36 }}
-                    >
-                      {item.price}
-                    </Text>
+                      <Text
+                        style={{ fontSize: 16, fontFamily: "InstrumentMedium" }}
+                      >
+                        R$
+                      </Text>
+                      <Text
+                        style={{ fontFamily: "InstrumentMedium", fontSize: 36 }}
+                      >
+                        {item.price}
+                      </Text>
+                    </View>
                   </View>
                 </View>
-              </View>
-            </Link>
+              </Link>
+            </View>
           );
         }}
         showsHorizontalScrollIndicator={false}
@@ -87,6 +85,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   productContainer: {
+    position: "relative",
     height: 346,
     width: 200,
     marginRight: 16,
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
     width: "100%",
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
-    display: 'flex',
+    display: "flex",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "flex-end",
@@ -107,10 +106,10 @@ const styles = StyleSheet.create({
   },
   productImage: {
     resizeMode: "contain",
-    maxHeight: '90%',
-    maxWidth: '80%',
+    maxHeight: "90%",
+    maxWidth: "80%",
   },
-  
+
   title: {
     fontFamily: "InstrumentSemiBold",
     fontSize: 16,

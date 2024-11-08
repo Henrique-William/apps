@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     right: 14,
     top: 14,
+    zIndex: 100,
   },
 });
 
