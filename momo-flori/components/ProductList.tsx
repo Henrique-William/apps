@@ -1,13 +1,27 @@
-import { View, Text, FlatList, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { ProductPlants } from "./lists";
 import LikeBtn from "./LikeBtn";
-import { Link } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
+import { ProductInfoNavigationProp } from "@/navigation";
 
 interface Plants {
   list: ProductPlants[];
 }
 
+interface Props {
+  item: Plants;
+}
+
 function ProductList({ list }: Plants) {
+  const navigation = useNavigation<ProductInfoNavigationProp>();
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -19,12 +33,11 @@ function ProductList({ list }: Plants) {
             <View style={styles.productContainer}>
               <LikeBtn likeValue={item.isLiked} />
 
-              <Link
-                href={{
-                  pathname: "/productInfo",
-                  params: { id: item.id },
-                }}
-                style={styles.productContainer}
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("productInfo", { id: item.id })
+                }
+                style={{ width: "100%", height: "100%" }}
               >
                 <View
                   style={[styles.imageHolder, { backgroundColor: item.color }]}
@@ -43,8 +56,8 @@ function ProductList({ list }: Plants) {
                     paddingTop: 18,
                   }}
                 >
-                  <Text style={styles.title}>{item.title}</Text>
-                  <Text style={styles.subTitle}>{item.subtitle}</Text>
+                  <Text style={styles.title} numberOfLines={1}>{item.title}</Text>
+                  <Text style={styles.subTitle} numberOfLines={1}>{item.subtitle}</Text>
                   <View
                     style={{
                       flexDirection: "row",
@@ -69,7 +82,7 @@ function ProductList({ list }: Plants) {
                     </View>
                   </View>
                 </View>
-              </Link>
+              </TouchableOpacity>
             </View>
           );
         }}
@@ -86,11 +99,12 @@ const styles = StyleSheet.create({
   },
   productContainer: {
     position: "relative",
+
     height: 346,
     width: 200,
     marginRight: 16,
     borderRadius: 16,
-    elevation: 3,
+    // elevation: 3,
   },
   imageHolder: {
     position: "relative",
