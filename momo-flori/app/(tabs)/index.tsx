@@ -1,18 +1,41 @@
-import { StyleSheet, ScrollView, Platform } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, ScrollView, Platform, ActivityIndicator } from "react-native";
+import { fetchProducts, Product } from '@/sevices/productService';
+
 import { StatusBar } from "expo-status-bar";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 import HomeHeader from "@/components/HomeHeader";
 import Search from "@/components/Search";
 import ProductList from "@/components/ProductList";
 import Filters from "@/components/Filters";
-import { plants } from "@/components/lists";
 
 export default function Index() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        const data = await fetchProducts();
+        setProducts(data);
+      } catch (error) {
+        console.error('Erro ao carregar produtos:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProducts();
+  }, []);
+
+  if (loading) {
+    return <ActivityIndicator size="large" color="#0000ff" style={styles.loading} />;
+  }
   return (
     <SafeAreaView style={styles.screen}>
-      <ScrollView 
+      <ScrollView
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
@@ -50,7 +73,7 @@ export default function Index() {
             },
           ]}
         />
-        <ProductList list={plants} />
+        <ProductList list={products} />
 
         {/* Espaço extra para garantir que o conteúdo não fique atrás da barra de navegação */}
       </ScrollView>
@@ -68,5 +91,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: Platform.OS === 'android' ? 84 : 84, // Ajuste de margem inferior específico para Android
   },
- 
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

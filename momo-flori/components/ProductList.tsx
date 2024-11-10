@@ -6,20 +6,16 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import { ProductPlants } from "./lists";
 import LikeBtn from "./LikeBtn";
 import { useNavigation } from "@react-navigation/native";
 import { ProductInfoNavigationProp } from "@/navigation";
-
-interface Plants {
-  list: ProductPlants[];
-}
+import { Product } from "@/sevices/productService";
 
 interface Props {
-  item: Plants;
+  list: Product[];
 }
 
-function ProductList({ list }: Plants) {
+function ProductList({ list }: Props) {
   const navigation = useNavigation<ProductInfoNavigationProp>();
 
   return (
@@ -27,65 +23,42 @@ function ProductList({ list }: Plants) {
       <FlatList
         data={list}
         horizontal
-        keyExtractor={(item) => item.title}
-        renderItem={({ item }) => {
-          return (
-            <View style={styles.productContainer}>
-              <LikeBtn likeValue={item.isLiked} />
+        keyExtractor={(item) => item._id.toString()}
+        renderItem={({ item }) => (
+          <View style={styles.productContainer}>
+            
+            <LikeBtn likeValue={item.isLiked} />
 
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("productInfo", { id: item.id })
-                }
-                style={{ width: "100%", height: "100%" }}
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("productInfo", { id: item._id })
+              }
+              style={{ width: "100%", height: "100%" }}
+            >
+              <View
+                style={[styles.imageHolder, { backgroundColor: item.color }]}
               >
-                <View
-                  style={[styles.imageHolder, { backgroundColor: item.color }]}
-                >
-                  <Image source={item.image} style={styles.productImage} />
-                </View>
+                <Image source={{ uri: item.image }} style={styles.productImage} />
+              </View>
 
-                <View
-                  style={{
-                    height: "30%",
-                    width: "100%",
-                    backgroundColor: "#fff",
-                    borderBottomLeftRadius: 16,
-                    borderBottomRightRadius: 16,
-                    paddingHorizontal: 12,
-                    paddingTop: 18,
-                  }}
-                >
-                  <Text style={styles.title} numberOfLines={1}>{item.title}</Text>
-                  <Text style={styles.subTitle} numberOfLines={1}>{item.subtitle}</Text>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Text style={styles.category}>{item.category}</Text>
-                    <View
-                      style={{ flexDirection: "row", alignItems: "flex-start" }}
-                    >
-                      <Text
-                        style={{ fontSize: 16, fontFamily: "InstrumentMedium" }}
-                      >
-                        R$
-                      </Text>
-                      <Text
-                        style={{ fontFamily: "InstrumentMedium", fontSize: 36 }}
-                      >
-                        {item.price}
-                      </Text>
-                    </View>
+              <View style={styles.infoContainer}>
+                <Text style={styles.title} numberOfLines={1}>
+                  {item.title}
+                </Text>
+                <Text style={styles.subTitle} numberOfLines={1}>
+                  {item.subtitle}
+                </Text>
+                <View style={styles.footer}>
+                  <Text style={styles.category}>{item.category}</Text>
+                  <View style={styles.priceContainer}>
+                    <Text style={styles.priceSymbol}>R$</Text>
+                    <Text style={styles.price}>{item.price}</Text>
                   </View>
                 </View>
-              </TouchableOpacity>
-            </View>
-          );
-        }}
+              </View>
+            </TouchableOpacity>
+          </View>
+        )}
         showsHorizontalScrollIndicator={false}
       />
     </View>
@@ -99,12 +72,10 @@ const styles = StyleSheet.create({
   },
   productContainer: {
     position: "relative",
-
     height: 346,
     width: 200,
     marginRight: 16,
     borderRadius: 16,
-    // elevation: 3,
   },
   imageHolder: {
     position: "relative",
@@ -120,10 +91,18 @@ const styles = StyleSheet.create({
   },
   productImage: {
     resizeMode: "contain",
-    maxHeight: "90%",
-    maxWidth: "80%",
+    width: '80%',
+    height: "80%",
   },
-
+  infoContainer: {
+    height: "30%",
+    width: "100%",
+    backgroundColor: "#fff",
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
+    paddingHorizontal: 12,
+    paddingTop: 18,
+  },
   title: {
     fontFamily: "InstrumentSemiBold",
     fontSize: 16,
@@ -143,6 +122,23 @@ const styles = StyleSheet.create({
     borderColor: "#004643",
     textAlign: "center",
     textAlignVertical: "center",
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  priceContainer: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+  },
+  priceSymbol: {
+    fontSize: 16,
+    fontFamily: "InstrumentMedium",
+  },
+  price: {
+    fontFamily: "InstrumentMedium",
+    fontSize: 36,
   },
 });
 
